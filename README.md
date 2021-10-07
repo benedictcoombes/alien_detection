@@ -21,16 +21,19 @@ python3 cov_deviation.py int_line_cov_file wheat_parent_1_cov_file wheat_parent_
 
 
 ###making alien_specific_SNPs
+
 python3 alien_specific_snps.py muticum.vcf paragon.vcf pavon.vcf muticum
 
 
 ###matching alien specific SNPs with introgression line SNPs
+
 python3 match_alien_specific_snps.py muticum_specific_snps.tsv ${prefix}_vfallelecalls_dp5.vcf ${prefix} muticum 5 3
 
 bedtools coverage -a RefSeqv1.0_1Mb_windows.bed -b ${prefix}_muticum_specific_SNP_assignments_homo.bed | cut -f 1,2,4 > ${prefix}_homo_mut_1Mb_windows.tsv
 bedtools coverage -a RefSeqv1.0_1Mb_windows.bed -b ${prefix}_muticum_specific_SNP_assignments_het.bed | cut -f 1,2,4 > ${prefix}_het_mut_1Mb_windows.tsv
 
 ###making introgression blocks
+
 paste ${prefix}_homo_mut_1Mb_windows.tsv ${prefix}_het_mut_1Mb_windows.tsv | cut -f 1,2,3,6 | python3 assign_alien_windows.py ${prefix} 55 4
 
 
