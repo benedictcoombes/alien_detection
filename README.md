@@ -12,6 +12,7 @@ bedtools makewindows -w 1000000 -g RefSeqv1.0_genome_file.txt > RefSeqv1.0_1Mb_w
 bedtools makewindows -w 100000 -g RefSeqv1.0_genome_file.txt > RefSeqv1.0_100Kb_windows.bed
 
 num_reads_post_duplicate_removal = n
+
 prefix = line_name
 
 hts_nim_tools count-reads RefSeqv1.0_1Mb_windows.bed $bam | sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > ${prefix}_cov_1Mb_windows.tsv
