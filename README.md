@@ -41,7 +41,7 @@ bedtools coverage -a RefSeqv1.0_1Mb_windows.bed -b ${prefix}_muticum_specific_SN
 
 ###making introgression blocks
 
-paste ${prefix}_homo_mut_1Mb_windows.tsv ${prefix}_het_mut_1Mb_windows.tsv | cut -f 1,2,3,6 | python3 assign_alien_windows.py ${prefix} 55 4
+paste ${prefix}_homo_mut_1Mb_windows.tsv ${prefix}_het_mut_1Mb_windows.tsv | cut -f 1,2,3,6 | python3 assign_alien_windows.py ${prefix} 55 4 161010_Chinese_Spring_v1.0_pseudomolecules.fasta.fai
 
 
 
