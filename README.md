@@ -6,24 +6,31 @@ Input for these scripts are the following:
 
 BAM alignment files and vcfs produced from mapping WGS illumina reads from the wheat parents, _Am. muticum_, and the introgression lines to the wheat reference genome (we used RefSeq v1.0). These are produced and processed using details included in the methods section of the paper.
 
+
+###making alien_specific_SNPs
+python3 alien_specific_snps.py muticum_vfallelecalls_dp5.vcf paragon_vfallelecalls_dp5.vcf pavon_vfallelecalls_dp5.vcf muticum
+
+
+###Identifying introgressed segments in introgression line DH65
+prefix=DH65
+
 samtools faidx 161010_Chinese_Spring_v1.0_pseudomolecules.fasta
 awk '{OFS="\t"; print $1,$2}' 161010_Chinese_Spring_v1.0_pseudomolecules.fasta.fai > RefSeqv1.0_genome_file.txt
 bedtools makewindows -w 1000000 -g RefSeqv1.0_genome_file.txt > RefSeqv1.0_1Mb_windows.bed
 bedtools makewindows -w 100000 -g RefSeqv1.0_genome_file.txt > RefSeqv1.0_100Kb_windows.bed
 
-num_reads_post_duplicate_removal = n
+num_reads_post_duplicate_removal=n
 
-prefix = line_name
+hts_nim_tools count-reads RefSeqv1.0_1Mb_windows.bed DH65_filt_srt_remove_dups.bam| sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > ${prefix}_cov_1Mb_windows.tsv
+hts_nim_tools count-reads RefSeqv1.0_1Mb_windows.bed paragon_filt_srt_remove_dups.bam | sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > Paragon_cov_1Mb_windows.tsv
+hts_nim_tools count-reads RefSeqv1.0_1Mb_windows.bed CS_filt_srt_remove_dups.bam| sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > CS_cov_1Mb_windows.tsv
 
-hts_nim_tools count-reads RefSeqv1.0_1Mb_windows.bed $bam | sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > ${prefix}_cov_1Mb_windows.tsv
+hts_nim_tools count-reads RefSeqv1.0_100Kb_windows.bed DH65_filt_srt_remove_dups.bam| sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > ${prefix}_cov_100Kb_windows.tsv
+hts_nim_tools count-reads RefSeqv1.0_100Kb_windows.bed paragon_filt_srt_remove_dups.bam | sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > Paragon_cov_100Kb_windows.tsv
+hts_nim_tools count-reads RefSeqv1.0_100Kb_windows.bed CS_filt_srt_remove_dups.bam| sort -k1,1 -k2,2n | awk -v num_reads=$num_reads_post_duplicate_removal '{OFS="\t"; $5=$4/num_reads; print}' > CS_cov_100Kb_windows.tsv
 
-python3 cov_deviation.py int_line_cov_file wheat_parent_1_cov_file wheat_parent_2_cov_file window_size introgression_line_name
-
-
-###making alien_specific_SNPs
-
-python3 alien_specific_snps.py muticum.vcf paragon.vcf pavon.vcf muticum
-
+python3 cov_deviation.py int_line_cov_file Paragon_cov_1Mb_windows.tsv CS_cov_1Mb_windows.tsv 1Mb ${prefix}
+python3 cov_deviation.py int_line_cov_file Paragon_cov_100Kb_windows.tsv CS_cov_100Kb_windows.tsv 100Kb ${prefix}
 
 ###matching alien specific SNPs with introgression line SNPs
 
