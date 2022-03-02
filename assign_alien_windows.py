@@ -2,9 +2,9 @@ import sys
 
 prefix = sys.argv[1]
 snp_threshold = int(sys.argv[2])
-hom_het_ratio = int(sys.argv[3])
+hom_het_ratio = float(sys.argv[3])
 cov_dev_threshold = float(sys.argv[4])
-distance_for_cov_dev_block_merging = int(sys.argv[5])
+distance_for_cov_dev_block_merging = float(sys.argv[5])
 block_proportion = float(sys.argv[6])
 cov_dev_block_proportion = float(sys.argv[7])
 
@@ -24,7 +24,6 @@ with open(prefix + "_cov_dev_1Mb.tsv", 'r') as cov_dev_file:
         if not "chrUn" in line:
             temp = line.rstrip( ).split( )
             cov_dev_dict[temp[0]+":"+temp[1]] = float(temp[2])
-
             if float(temp[2]) < cov_dev_threshold:
                 if current_block:
                     previous_cov_dev_chromosome = current_block[-1].split(":")[0]
@@ -40,13 +39,16 @@ with open(prefix + "_cov_dev_1Mb.tsv", 'r') as cov_dev_file:
 
     cov_dev_blocks.append(current_block)
 
+
 merged_cov_dev_blocks = [[i[0], i[-1]] for i in cov_dev_blocks if int(i[-1].split(":")[1]) - int(i[0].split(":")[1]) >= 1000000]
+
 
 window_ids_within_merged_cov_dev_blocks = []
 
 filtered_merged_cov_dev_blocks = []
 
 current_block_windows = []
+
 
 for i in merged_cov_dev_blocks:
     chromosome = i[0].split(":")[0]
@@ -59,7 +61,6 @@ for i in merged_cov_dev_blocks:
             count += 1
 
         current_block_windows.append(chromosome+":"+str(window))
-
     if count >= (cov_dev_block_proportion * ((end+1000000 - start) / 1000000)):
         for window in current_block_windows:
             window_ids_within_merged_cov_dev_blocks.append(window)
@@ -75,7 +76,7 @@ for line in sys.stdin:
             if int(temp[3]) == 0:
                 if temp[0]+":"+temp[1] in window_ids_within_merged_cov_dev_blocks:
                     muticum_windows.append(temp[0]+":"+temp[1])
-            elif int(temp[2]) / int(temp[3]) >= hom_het_ratio:
+            elif int(temp[2]) / int(temp[3]) >= hom_het_ratio:                
                 if temp[0]+":"+temp[1] in window_ids_within_merged_cov_dev_blocks:
                     muticum_windows.append(temp[0]+":"+temp[1])
 
@@ -209,7 +210,7 @@ for segment in final_segments_fine:
         windows_in_final_segments.append(segment[0]+":"+str(i))
 
 with open(prefix + "_cov_dev_1Mb.tsv", 'r') as cov_dev_file:
-    with open(prefix + "_muticum_assignments_1Mb.tsv", 'w') as out_file:
+    with open(prefix + "_segment_assignments_1Mb.tsv", 'w') as out_file:
         for line in cov_dev_file:
             if not "chrUn" in line:
                 temp = line.rstrip( ).split( )

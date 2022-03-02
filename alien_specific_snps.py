@@ -76,25 +76,25 @@ with open(alien + "_specific_snps.vcf", 'w') as muticum_out:
                 if paragon_alleles[1]:
                     #paragon has 2 alt alleles
                     if alleles[0] != paragon_alleles[0] and alleles[0] != paragon_alleles[1] and alleles[1] != paragon_alleles[0] and alleles[1] != paragon_alleles[1]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0]+","+alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0]+","+alleles[1], zygosity]) + "\n")
                     if alleles[0] != paragon_alleles[0] and alleles[0] != paragon_alleles[1] and (alleles[1] == paragon_alleles[0] or alleles[1] == paragon_alleles[1]):
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
                     if (alleles[0] == paragon_alleles[0] or alleles[0] == paragon_alleles[1]) and alleles[1] != paragon_alleles[0] and alleles[1] == paragon_alleles[1]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[1], zygosity]) + "\n")
                 else:
                     #paragon has 1 alt allele
                     if alleles[0] != paragon_alleles[0] and alleles[1] != paragon_alleles[0]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0]+","+alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0]+","+alleles[1], zygosity]) + "\n")
                     elif alleles[0] != paragon_alleles[0] and alleles[1] == paragon_alleles[0]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
                     elif alleles[0] == paragon_alleles[0] and alleles[1] != paragon_alleles[0]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[1], zygosity]) + "\n")
             else:
                 #muticum has 1 alt allele
                 if paragon_alleles[1]:
                     #paragon has 2 alt alleles
                     if alleles[0] != paragon_alleles[0] and alleles[0] != paragon_alleles[1]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
 
 
 
@@ -105,25 +105,25 @@ with open(alien + "_specific_snps.vcf", 'w') as muticum_out:
                 if pavon_alleles[1]:
                     #pavon has 2 alt alleles
                     if alleles[0] != pavon_alleles[0] and alleles[0] != pavon_alleles[1] and alleles[1] != pavon_alleles[0] and alleles[1] != pavon_alleles[1]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0]+","+alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0]+","+alleles[1], zygosity]) + "\n")
                     if alleles[0] != pavon_alleles[0] and alleles[0] != pavon_alleles[1] and (alleles[1] == pavon_alleles[0] or alleles[1] == pavon_alleles[1]):
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
                     if (alleles[0] == pavon_alleles[0] or alleles[0] == pavon_alleles[1]) and alleles[1] != pavon_alleles[0] and alleles[1] == pavon_alleles[1]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[1], zygosity]) + "\n")
                 else:
                     #pavon has 1 alt allele
                     if alleles[0] != pavon_alleles[0] and alleles[1] != pavon_alleles[0]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0]+","+alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0]+","+alleles[1], zygosity]) + "\n")
                     elif alleles[0] != pavon_alleles[0] and alleles[1] == pavon_alleles[0]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
                     elif alleles[0] == pavon_alleles[0] and alleles[1] != pavon_alleles[0]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[1], zygosity]) + "\n")
             else:
                 #muticum has 1 alt allele
                 if pavon_alleles[1]:
                     #pavon has 2 alt alleles
                     if alleles[0] != pavon_alleles[0] and alleles[0] != pavon_alleles[1]:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
 
         elif paragon_alleles[0] and pavon_alleles[0]:
             ##SNP at site in both paragon and in pavon
@@ -131,19 +131,19 @@ with open(alien + "_specific_snps.vcf", 'w') as muticum_out:
             #muticum has 2 alt alleles
                 if not alleles[0] in pavon_alleles and not alleles[0] in paragon_alleles:
                     if alleles[1] in pavon_alleles or alleles[1] in paragon_alleles:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
                     else:
-                        muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0]+","+alleles[1], zygosity]) + "\n")
+                        muticum_out.write("\t".join([chromosome, base, alleles[0]+","+alleles[1], zygosity]) + "\n")
                 elif alleles[1] in pavon_alleles and not alleles[1] in paragon_alleles:
-                    muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[1], zygosity]) + "\n")
+                    muticum_out.write("\t".join([chromosome, base, alleles[1], zygosity]) + "\n")
 
             else:
                 #muticum has 1 alt allele
                 if not alleles[0] in pavon_alleles and not alleles[0] in paragon_alleles:
-                    muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                    muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
 
         else:
             if alleles[1]:
-                muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0]+","+alleles[1], zygosity]) + "\n")
+                muticum_out.write("\t".join([chromosome, base, alleles[0]+","+alleles[1], zygosity]) + "\n")
             else:
-                muticum_out.write("\t".join([chromosome, base, ".", ".", alleles[0], zygosity]) + "\n")
+                muticum_out.write("\t".join([chromosome, base, alleles[0], zygosity]) + "\n")
