@@ -1,6 +1,6 @@
 # alien_detection
 
-These scripts were used during the analysis for "Whole genome sequencing uncovers the structural and transcriptomic landscape of hexaploid wheat/_Am. muticum_ introgression lines" to identify _Am. muticum_ introgression regions within a hexaploid wheat background.
+These scripts were used during the analysis for "Whole genome sequencing uncovers the structural and transcriptomic landscape of hexaploid wheat/_Am. muticum_ introgression lines" (https://www.biorxiv.org/content/10.1101/2021.11.16.468825v1.abstract) to identify _Am. muticum_ introgression regions within a hexaploid wheat background.
 
 They can be used to identify introgressions in your own lines.
 
