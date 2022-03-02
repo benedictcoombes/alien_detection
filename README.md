@@ -2,12 +2,15 @@
 
 These scripts were used during the analysis for "Whole genome sequencing reveals the structural and functional impact of synthetic alien introgression in wheat" to identify _Am. muticum_ introgression regions within a hexaploid wheat background.
 
+They can be used to identify introgressions in your own lines.
+
+
 Input for these scripts are the following:
 
 BAM alignment files and vcfs produced from mapping WGS illumina reads from the wheat parents, _Am. muticum_, and the introgression lines to the wheat reference genome (we used RefSeq v1.0). These are produced and processed using details included in the methods section of the paper.
 
 
-The bash script identify_introgressed_regions.sh will run the whole process for a single introgression line after producing all the bam and vcf files.
+The shell script identify_introgressed_regions.sh will run the whole process for a single introgression line after producing all the bam and vcf files.
 Arguments are:
 Introgressed species
 Wheat parent 1
